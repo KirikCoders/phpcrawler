@@ -1,5 +1,6 @@
 <?php
 include ('simple_html_dom.php');
+
 function get_usn($usn)
 {
     $url = "http://results.vtu.ac.in/cbcs_17/result_page.php";
@@ -43,62 +44,106 @@ function get_usn($usn)
    }
        //for ($i=0;$i<135;$i++)
        //{
+   $suba=$subb=$subc=$subd=$sube=$subf=$subg=$subh="0";
    if($rtt[1]!="F -> FAIL,")
    {
 
-       echo $rtt[1];
-       echo("                       ");
+       $usn=$rtt[1];
+       $usn  =  str_replace(":","",$usn);
+       $usn  =  str_replace("<b>","",$usn);
+       $usn  =  str_replace("</b>","",$usn);
+
+       
        if(isset($rtt1[4]))
        {
-       echo $rtt1[4];
-       echo("                       ");
+       $suba=$rtt1[4];
+       
      }
        if(isset($rtt1[10]))
        {
-       echo $rtt1[10];
-       echo("                       ");
+       $subb=$rtt1[10];
+       
     }
        if(isset($rtt1[16]))
        {
-       echo $rtt1[16];
-        echo("                       ");
+       $subc=$rtt1[16];
+        
       }
       if(isset($rtt1[22]))
        {
-        echo("                       ");
-       echo $rtt1[22];
+        
+       $subd=$rtt1[22];
         }
         if(isset($rtt1[28]))
         {
-        echo("                       ");
-       echo $rtt1[28];
+        
+       $sube=$rtt1[28];
         }
        if(isset($rtt1[34]))
        {
-       echo("                       ");
-       echo $rtt1[34];
+       
+       $subf = $rtt1[34];
         }
        if(isset($rtt1[40]))
        {
-       echo("                       ");
-       echo $rtt1[40];
+       
+       $subg=$rtt1[40];
          }
        if(isset($rtt1[46]))
        {
-       echo("                       ");
-       echo $rtt1[46];
+       $subh=$rtt1[46];
     }
-       
-       }
+
+    
+}
 
 
 
 
+
+    
+
+     insert_data_into_db($usn,$suba,$subb,$subc,$subd,$sube,$subf,$subg,$subh);
+    
+
+}
+
+function insert_data_into_db($usn,$suba,$subb,$subc,$subd,$sube,$subf,$subg,$subh)
+{
+    // echo "$usn    ";
+    $sql ="INSERT INTO sem5 (usn,sub1,sub2,sub3,sub4,sub5,sub6,sub7,sub8)
+VALUES ('$usn',$suba,$subb,$subc,$subd,$sube,$subf,$subg,$subh)";
+    
+        $host = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "exam";
+
+        // Create connection
+        $conn = new mysqli($host, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+            echo "PAVAN";
+        }
+      
+mysqli_query($conn, "INSERT INTO sem5 (usn,sub1,sub2,sub3,sub4,sub5,sub6,sub7,sub8)
+VALUES ('$usn',$suba,$subb,$subc,$subd,$sube,$subf,$subg,$subh)");
+    // if ($conn->query($sql)) {
+    //   echo "New record created successfully";
+    //   echo ("finished");
+    //   }
+    //   else{
+    //     echo "Error";
+    //   }
+
+echo "INSERTED";
 
 
 }
+
 $start_seq = "1BI15CS";
-for ($i=0;$i<200;$i++)
+for ($i=1;$i<42;$i++)
 {
     $j = strlen((string)$i);
     if( $j== 1)
