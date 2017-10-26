@@ -1,4 +1,3 @@
-
 <?php
 include ('simple_html_dom.php');
 function get_usn($usn)
@@ -121,10 +120,18 @@ VALUES ('$usn',$suba,$subb,$subc,$subd,$sube,$subf,$subg,$subh)");
     //   else{
     //     echo "Error";
     //   }
-echo "INSERTED";
+echo ".";
 }
-$start_seq = "1BI15CS";
-for ($i=1;$i<110;$i++)
+
+$region=$_POST['input1'];
+$college=$_POST['input2'];
+$batch=$_POST['input3'];
+$branch=$_POST['input4'];
+$startusn=$_POST['input5'];
+$endusn=$_POST['input6'];
+$start=$region.$college.$batch.$branch;
+$start_seq = $start;
+for ($i=$startusn;$i<$endusn;$i++)
 {
     $j = strlen((string)$i);
     if( $j== 1)
@@ -142,6 +149,6 @@ for ($i=1;$i<110;$i++)
     
     $usn = $start_seq.$roll;
     get_usn($usn);
-    
     }
+    header('Location: crawlerselect.php');
     ?>
